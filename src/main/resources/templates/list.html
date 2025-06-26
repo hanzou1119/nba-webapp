@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NBA選手名鑑</title>
+
+    <!-- ✅ Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- ✅ jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- ✅ Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="container py-4">
+
+    <h1 class="mb-4">NBA選手一覧</h1>
+
+    <!-- 🔍 検索フォーム -->
+    <div class="mb-3">
+        <input type="text" id="searchInput" class="form-control" placeholder="名前 or チーム名で検索">
+    </div>
+
+    <!-- 📋 選手テーブル -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>選手名</th>
+                <th>背番号</th>
+                <th>所属チーム</th>
+                <th>ポジション</th>
+                <th>身長</th>
+                <th>体重</th>
+                <th>出身国</th>
+                <th>写真</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="playerTable">
+            <tr th:each="player : ${players}">
+                <td th:text="${player.name}">選手名</td>
+                <td th:text="${player.jerseyNumber}">背番号</td>
+                <td th:text="${player.team}">所属チーム</td>
+                <td th:text="${player.position}">ポジション</td>
+                <td th:text="${player.heightCm}">身長</td>
+                <td th:text="${player.weightKg}">体重</td>
+                <td th:text="${player.country}">出身国</td>
+                <td>
+                    <img th:src="${player.imageUrl}" alt="写真" width="50" height="50">
+                </td>
+                <td>
+                    <a th:href="@{'/players/' + ${player.id}}" class="btn btn-sm btn-outline-primary">詳細</a>
+                    <a th:href="@{'/players/edit/' + ${player.id}}" class="btn btn-sm btn-outline-warning ms-1">編集</a>
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 🔍 jQuery簡易検索機能 -->
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').on('keyup', function() {
+                let keyword = $(this).val().toLowerCase();
+                $('#playerTable tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

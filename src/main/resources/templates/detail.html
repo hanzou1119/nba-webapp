@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${player.name} + ' の詳細'">選手詳細</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-4">
+
+    <h1 th:text="${player.name}">選手名</h1>
+    <table class="table table-bordered">
+        <tr><th>背番号</th><td th:text="${player.jerseyNumber}"></td></tr>
+        <tr><th>チーム</th><td th:text="${player.team}"></td></tr>
+        <tr><th>ポジション</th><td th:text="${player.position}"></td></tr>
+        <tr><th>身長</th><td th:text="${player.heightCm}"></td></tr>
+        <tr><th>体重</th><td th:text="${player.weightKg}"></td></tr>
+        <tr><th>出身国</th><td th:text="${player.country}"></td></tr>
+        <tr>
+            <th>画像</th>
+            <td><img th:src="${player.imageUrl}" alt="画像" width="100"></td>
+        </tr>
+    </table>
+
+    <a th:href="@{/players}" class="btn btn-secondary">一覧へ戻る</a>
+
+</body>
+</html>

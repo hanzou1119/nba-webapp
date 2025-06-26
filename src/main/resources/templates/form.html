@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${player.id != null} ? '選手情報編集' : '新規選手登録'">フォーム</title>
+</head>
+<body>
+    <h1 th:text="${player.id != null} ? '選手情報編集' : '新規選手登録'">フォーム</h1>
+
+    <!--　編集でも使える共通フォーム -->
+    <form th:action="@{/players/update}" th:object="${player}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <label>名前: <input type="text" th:field="*{name}" /></label><br/>
+        <label>背番号: <input type="number" th:field="*{jerseyNumber}" /></label><br/>
+        <label>所属チーム: <input type="text" th:field="*{team}" /></label><br/>
+        <label>ポジション: <input type="text" th:field="*{position}" /></label><br/>
+        <label>身長(cm): <input type="number" th:field="*{heightCm}" /></label><br/>
+        <label>体重(kg): <input type="number" th:field="*{weightKg}" /></label><br/>
+        <label>出身国: <input type="text" th:field="*{country}" /></label><br/>
+        <label>写真URL: <input type="text" th:field="*{imageUrl}" /></label><br/>
+
+        <button type="submit" th:text="${player.id != null} ? '更新' : '登録'">保存</button>
+    </form>
+
+    <a th:href="@{/players}">一覧に戻る</a>
+</body>
+</html>
